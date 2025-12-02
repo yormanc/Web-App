@@ -1,0 +1,44 @@
+[
+  {
+    "identificador": 1,
+    "denominacion": "Java",
+    "gradoDominacion": "Avanzado",
+    "colorAsociado": "#ED8936"
+  },
+  {
+    "identificador": 2,
+    "denominacion": "JavaScript",
+    "gradoDominacion": "Avanzado",
+    "colorAsociado": "#F7DF1E"
+  },
+  {
+    "identificador": 3,
+    "denominacion": "HTML/CSS",
+    "gradoDominacion": "Avanzado",
+    "colorAsociado": "#E34C26"
+  },
+  {
+    "identificador": 4,
+    "denominacion": "Python",
+    "gradoDominacion": "Intermedio",
+    "colorAsociado": "#3776AB"
+  },
+  {
+    "identificador": 5,
+    "denominacion": "SQL",
+    "gradoDominacion": "Avanzado",
+    "colorAsociado": "#336791"
+  },
+  {
+    "identificador": 6,
+    "denominacion": "Spring Boot",
+    "gradoDominacion": "Intermedio",
+    "colorAsociado": "#6DB33F"
+  },
+  {
+    "identificador": 7,
+    "denominacion": "Bootstrap",
+    "gradoDominacion": "Avanzado",
+    "colorAsociado": "#7952B3"
+  }
+]

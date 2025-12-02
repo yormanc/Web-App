@@ -1,0 +1,203 @@
+/* ESTILOS RESPONSIVOS PARA DISPOSITIVOS MÓVILES Y TABLETS */
+
+/* TABLETS: Hasta 768px */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 10px !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+
+    .hero-section {
+        padding: 40px 15px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-section .lead {
+        font-size: 0.95rem;
+    }
+
+    .hero-section img {
+        width: 150px !important;
+        height: 150px;
+    }
+
+    .capacidades-section {
+        padding: 40px 15px;
+    }
+
+    .capacidades-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .row {
+        margin: 0;
+    }
+
+    .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* MÓVILES: Hasta 480px */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 0.9rem;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+        display: block;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+        width: 100%;
+    }
+
+    /* HERO */
+    .hero-section {
+        padding: 30px 10px;
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    .hero-section .lead {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+    }
+
+    .hero-section img {
+        width: 120px !important;
+        height: 120px;
+    }
+
+    .hero-section p {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    /* CAPACIDADES */
+    .capacidades-section {
+        padding: 30px 10px;
+    }
+
+    .capacidades-section h2 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .capacidad-card {
+        margin-bottom: 15px;
+    }
+
+    .capacidad-card .card-title {
+        font-size: 1rem;
+    }
+
+    /* MODALES */
+    .modal-dialog {
+        margin: 20px 10px;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .form-control {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    /* BOTONES MODALES */
+    .modal-footer {
+        gap: 10px;
+    }
+
+    .modal-footer .btn {
+        font-size: 0.85rem;
+        padding: 8px 15px;
+        flex: 1;
+    }
+}
+
+/* MODO HORIZONTAL (LANDSCAPE) */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .hero-section {
+        padding: 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.3rem;
+    }
+
+    .hero-section img {
+        width: 100px !important;
+        height: 100px;
+    }
+
+    .capacidades-section {
+        padding: 20px;
+    }
+}
+
+/* DARK MODE (Opcional) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --colorFondo: #1e1e1e;
+        --colorTexto: #ffffff;
+        --colorTextoClaro: #cccccc;
+        --colorBorde: #444444;
+    }
+
+    body {
+        background-color: var(--colorFondo);
+        color: var(--colorTexto);
+    }
+
+    .capacidad-card {
+        background-color: #2e2e2e;
+        border-color: var(--colorBorde);
+    }
+
+    .form-control {
+        background-color: #2e2e2e;
+        color: var(--colorTexto);
+        border-color: var(--colorBorde);
+    }
+
+    .modal-content {
+        background-color: #2e2e2e;
+        color: var(--colorTexto);
+    }
+}
