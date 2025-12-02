@@ -1,4 +1,4 @@
-package modelos;
+package models;
 
 /**
  * Clase que representa una competencia técnica o habilidad profesional.
