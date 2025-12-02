@@ -1,13 +1,12 @@
-package controladores;
+package controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import modelos.AdministradorDatos;
-import modelos.Usuario;
+import models.AdministradorDatos;
+import models.Usuario;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,8 +42,8 @@ public class ControladorPrincipal extends HttpServlet {
         Usuario usuarioActual = AdministradorDatos.cargarDatosUsuario();
         
         // Cargar todas las competencias desde el archivo JSON
-        modelos.Competencia[] arregloCompetencias = 
-            AdministradorDatos.cargarTodasLasCompetencias().toArray(new modelos.Competencia[0]);
+        models.Competencia[] arregloCompetencias = 
+            AdministradorDatos.cargarTodasLasCompetencias().toArray(new models.Competencia[0]);
         
         // Guardar los datos en el request para que la vista (JSP) pueda acceder
         request.setAttribute("usuarioEnSesion", usuarioActual);
