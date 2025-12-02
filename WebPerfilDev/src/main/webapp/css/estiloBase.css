@@ -1,0 +1,188 @@
+:root {
+    --colorPrimario: #667eea;
+    --colorSecundario: #764ba2;
+    --colorFondo: #f5f5f5;
+    --colorTexto: #333333;
+    --colorTextoClaro: #666666;
+    --colorBorde: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--colorFondo);
+    color: var(--colorTexto);
+    line-height: 1.6;
+}
+
+/* NAVBAR */
+.navbar {
+    background: linear-gradient(135deg, var(--colorPrimario) 0%, var(--colorSecundario) 100%) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* HERO SECTION */
+.hero-section {
+    background: linear-gradient(135deg, var(--colorPrimario) 0%, var(--colorSecundario) 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.hero-section .lead {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    margin-bottom: 20px;
+}
+
+.hero-section img {
+    border: 5px solid white;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.hero-section img:hover {
+    transform: scale(1.05);
+}
+
+/* CAPACIDADES SECTION */
+.capacidades-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.capacidades-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--colorPrimario);
+    font-weight: bold;
+}
+
+/* TARJETA DE CAPACIDAD */
+.capacidad-card {
+    background: white;
+    border: 1px solid var(--colorBorde);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.capacidad-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.capacidad-card .card-title {
+    color: var(--colorPrimario);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.capacidad-card .card-text {
+    color: var(--colorTextoClaro);
+    font-size: 0.9rem;
+}
+
+.capacidad-card .btn {
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+/* BOTONES */
+.btn-primary {
+    background-color: var(--colorPrimario);
+    border-color: var(--colorPrimario);
+}
+
+.btn-primary:hover {
+    background-color: var(--colorSecundario);
+    border-color: var(--colorSecundario);
+}
+
+.btn-success {
+    background-color: #48bb78;
+    border-color: #48bb78;
+}
+
+.btn-success:hover {
+    background-color: #38a169;
+    border-color: #38a169;
+}
+
+/* FORMULARIOS */
+.form-control {
+    border: 1px solid var(--colorBorde);
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--colorPrimario);
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--colorTexto);
+}
+
+/* MODALES */
+.modal-content {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background-color: var(--colorPrimario);
+    color: white;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-section .lead {
+        font-size: 1rem;
+    }
+
+    .capacidades-section {
+        padding: 40px 15px;
+    }
+
+    .capacidades-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+}
