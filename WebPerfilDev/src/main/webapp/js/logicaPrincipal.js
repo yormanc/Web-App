@@ -1,140 +1,190 @@
-// Instancia de Bootstrap Modal
-let modalEditarPerfil;
-let modalAgregarCapacidad;
-let modalEditarCapacidad;
+/* global bootstrap */
 
-// Inicializar cuando la página carga
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar modales
-    modalEditarPerfil = new bootstrap.Modal(document.getElementById('modalEditarPerfil'));
-    modalAgregarCapacidad = new bootstrap.Modal(document.getElementById('modalAgregarCapacidad'));
-    modalEditarCapacidad = new bootstrap.Modal(document.getElementById('modalEditarCapacidad'));
-    
-    // Agregar event listeners a los formularios
-    document.getElementById('formularioEditarPerfil').addEventListener('submit', guardarPerfil);
-    document.getElementById('formularioAgregarCapacidad').addEventListener('submit', agregarCapacidad);
-    document.getElementById('formularioEditarCapacidad').addEventListener('submit', guardarCapacidad);
-});
+console.log("logicaPrincipal.js cargado correctamente");
 
-// ============================================
-// FUNCIONES DE MODALES
-// ============================================
+const CONTEXT_PATH = '/WebPerfilDev';
+const API_COMPETENCIAS = `${CONTEXT_PATH}/controlador-competencias`;
 
 function abrirDialogoEditarPerfil() {
-    modalEditarPerfil.show();
+    console.log("Abriendo modal de editar perfil...");
+    const modal = new bootstrap.Modal(document.getElementById('modalEditarPerfil'));
+    modal.show();
 }
+
+document.getElementById('formularioEditarPerfil').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const datos = {
+        nombre: document.getElementById('inputNombre').value,
+        descripcion: document.getElementById('inputBio').value,
+        email: document.getElementById('inputEmail').value,
+        telefono: document.getElementById('inputTelefono').value,
+        experiencia: document.getElementById('inputExperiencia').value,
+        foto: document.getElementById('inputFoto').value
+    };
+    
+    console.log("Enviando actualización de perfil:", datos);
+    
+    try {
+        const formData = new FormData();
+        formData.append('accion', 'actualizarPerfil');
+        formData.append('nombre', datos.nombre);
+        formData.append('descripcion', datos.descripcion);
+        formData.append('email', datos.email);
+        formData.append('telefono', datos.telefono);
+        formData.append('experiencia', datos.experiencia);
+        formData.append('foto', datos.foto);
+        
+        const response = await fetch(`${CONTEXT_PATH}/`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const resultado = await response.text();
+        
+        if (response.ok && resultado === 'OK') {
+            alert('Perfil actualizado correctamente');
+            location.reload();
+        } else {
+            throw new Error(resultado);
+        }
+    } catch (error) {
+        console.error('Error actualizando perfil:', error);
+        alert('Error al actualizar el perfil: ' + error.message);
+    }
+});
 
 function abrirDialogoAgregarCapacidad() {
-    // Limpiar formulario
-    document.getElementById('formularioAgregarCapacidad').reset();
-    document.getElementById('inputColorTecnologia').value = '#667eea';
-    modalAgregarCapacidad.show();
+    console.log("Abriendo modal de agregar capacidad...");
+    const modal = new bootstrap.Modal(document.getElementById('modalAgregarCapacidad'));
+    modal.show();
 }
+document.getElementById('formularioAgregarCapacidad').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const datos = {
+        nombre: document.getElementById('inputNombreTecnologia').value,
+        nivel: document.getElementById('inputNivelTecnologia').value,
+        color: document.getElementById('inputColorTecnologia').value
+    };
+    
+    console.log("Enviando nueva capacidad:", datos);
+    
+    try {
+        const formData = new FormData();
+        formData.append('accion', 'agregar');
+        formData.append('nombreTecnologia', datos.nombre);
+        formData.append('nivelTecnologia', datos.nivel);
+        formData.append('colorTecnologia', datos.color);
+        
+        const response = await fetch(API_COMPETENCIAS, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const resultado = await response.text();
+        
+        if (response.ok && resultado === 'OK') {
+            alert('Capacidad agregada correctamente');
+            location.reload();
+        } else {
+            throw new Error(resultado);
+        }
+    } catch (error) {
+        console.error('Error agregando capacidad:', error);
+        alert('Error al agregar capacidad: ' + error.message);
+    }
+});
 
 function abrirDialogoEditarCapacidad(id, nombre, nivel, color) {
+    console.log("Abriendo modal de editar capacidad:", { id, nombre, nivel, color });
+    
     document.getElementById('inputIdCapacidad').value = id;
     document.getElementById('inputNombreTecnologiaEdit').value = nombre;
     document.getElementById('inputNivelTecnologiaEdit').value = nivel;
     document.getElementById('inputColorTecnologiaEdit').value = color;
-    modalEditarCapacidad.show();
+    
+    const modal = new bootstrap.Modal(document.getElementById('modalEditarCapacidad'));
+    modal.show();
 }
 
-// ============================================
-// FUNCIONES DE GUARDADO
-// ============================================
-
-function guardarPerfil(e) {
+document.getElementById('formularioEditarCapacidad').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    const datosActualizados = {
-        nombreCompleto: document.getElementById('inputNombre').value,
-        descripcionPersonal: document.getElementById('inputBio').value,
-        correoContacto: document.getElementById('inputEmail').value,
-        numeroTelefono: document.getElementById('inputTelefono').value,
-        experienciaAnosText: document.getElementById('inputExperiencia').value,
-        urlFotoPerfil: document.getElementById('inputFoto').value
+    const datos = {
+        id: document.getElementById('inputIdCapacidad').value,
+        nombre: document.getElementById('inputNombreTecnologiaEdit').value,
+        nivel: document.getElementById('inputNivelTecnologiaEdit').value,
+        color: document.getElementById('inputColorTecnologiaEdit').value
     };
     
-    console.log('Guardando perfil:', datosActualizados);
+    console.log("Enviando actualización de capacidad:", datos);
     
-    // Aquí irían las llamadas AJAX al servidor
-    // Por ahora mostrar confirmación
-    alert('Perfil actualizado correctamente');
-    modalEditarPerfil.hide();
-    
-    // Recargar la página para ver cambios
-    location.reload();
-}
-
-function agregarCapacidad(e) {
-    e.preventDefault();
-    
-    const nuevaCapacidad = {
-        denominacion: document.getElementById('inputNombreTecnologia').value,
-        gradoDominacion: document.getElementById('inputNivelTecnologia').value,
-        colorAsociado: document.getElementById('inputColorTecnologia').value
-    };
-    
-    console.log('Agregando capacidad:', nuevaCapacidad);
-    
-    alert('Capacidad agregada correctamente');
-    modalAgregarCapacidad.hide();
-    
-    // Recargar la página
-    location.reload();
-}
-
-function guardarCapacidad(e) {
-    e.preventDefault();
-    
-    const capacidadActualizada = {
-        identificador: document.getElementById('inputIdCapacidad').value,
-        denominacion: document.getElementById('inputNombreTecnologiaEdit').value,
-        gradoDominacion: document.getElementById('inputNivelTecnologiaEdit').value,
-        colorAsociado: document.getElementById('inputColorTecnologiaEdit').value
-    };
-    
-    console.log('Guardando capacidad:', capacidadActualizada);
-    
-    alert('Capacidad actualizada correctamente');
-    modalEditarCapacidad.hide();
-    
-    // Recargar la página
-    location.reload();
-}
-
-// ============================================
-// FUNCIONES DE ELIMINACIÓN
-// ============================================
+    try {
+        const formData = new FormData();
+        formData.append('accion', 'editar');
+        formData.append('idCapacidad', datos.id);
+        formData.append('nombreTecnologia', datos.nombre);
+        formData.append('nivelTecnologia', datos.nivel);
+        formData.append('colorTecnologia', datos.color);
+        
+        const response = await fetch(API_COMPETENCIAS, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const resultado = await response.text();
+        
+        if (response.ok && resultado === 'OK') {
+            alert(' Capacidad actualizada correctamente');
+            location.reload();
+        } else {
+            throw new Error(resultado);
+        }
+    } catch (error) {
+        console.error('Error actualizando capacidad:', error);
+        alert(' Error al actualizar capacidad: ' + error.message);
+    }
+});
 
 function confirmarEliminacion(id) {
-    if (confirm('¿Deseas eliminar esta capacidad?')) {
-        console.log('Eliminando capacidad con ID:', id);
-        alert('Capacidad eliminada correctamente');
-        
-        // Recargar la página
-        location.reload();
+    console.log("Confirmando eliminación de capacidad ID:", id);
+    
+    if (confirm('¿Estás seguro de que deseas eliminar esta capacidad?')) {
+        eliminarCapacidad(id);
     }
 }
 
-// ============================================
-// FUNCIONES AUXILIARES
-// ============================================
-
-function mostrarNotificacion(mensaje, tipo = 'info') {
-    // Crear elemento de notificación
-    const notif = document.createElement('div');
-    notif.className = `alert alert-${tipo} alert-dismissible fade show`;
-    notif.innerHTML = `
-        ${mensaje}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
+async function eliminarCapacidad(id) {
+    console.log("Eliminando capacidad ID:", id);
     
-    // Agregar al DOM
-    document.body.insertBefore(notif, document.body.firstChild);
-    
-    // Auto-cerrar después de 3 segundos
-    setTimeout(() => {
-        notif.remove();
-    }, 3000);
+    try {
+        const formData = new FormData();
+        formData.append('accion', 'eliminar');
+        formData.append('idCapacidad', id);
+        
+        const response = await fetch(API_COMPETENCIAS, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const resultado = await response.text();
+        
+        if (response.ok && resultado === 'OK') {
+            alert('Capacidad eliminada correctamente');
+            location.reload();
+        } else {
+            throw new Error(resultado);
+        }
+    } catch (error) {
+        console.error('Error eliminando capacidad:', error);
+        alert('Error al eliminar capacidad: ' + error.message);
+    }
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Aplicación inicializada correctamente');
+    console.log('Context Path:', CONTEXT_PATH);
+    console.log('API Competencias:', API_COMPETENCIAS);
+});

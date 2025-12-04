@@ -17,49 +17,69 @@ import java.util.List;
 public class ControladorPrincipal extends HttpServlet {
     
     @Override
+    public void init() throws ServletException {
+        super.init();
+        System.out.println(" ControladorPrincipal inicializado");
+    }
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        // Cargar datos del usuario
-        Usuario usuarioActual = AdministradorDatos.cargarDatosUsuario();
-        if (usuarioActual == null) {
-            usuarioActual = new Usuario("Cargando...", "Espera...", "email@ejemplo.com", "", "", "");
+        System.out.println("=== GET " + request.getRequestURI() + " ===");
+        
+        try {
+            Usuario usuarioActual = AdministradorDatos.cargarDatosUsuario();
+            List<Competencia> listaCompetencias = AdministradorDatos.cargarTodasLasCompetencias();
+            Competencia[] arregloCompetencias = listaCompetencias.toArray(new Competencia[0]);
+            request.setAttribute("usuarioEnSesion", usuarioActual);
+            request.setAttribute("competenciasDelUsuario", arregloCompetencias);
+            request.setAttribute("totalCompetenciasActuales", arregloCompetencias.length);
+            System.out.println("Datos enviados al JSP - Usuario: " + usuarioActual.getNombreCompleto() + ", Competencias: " + arregloCompetencias.length);
+            request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
+        } catch (Exception e) {
+            System.err.println("Error en doGet: " + e.getMessage());
+            e.printStackTrace();
+            throw new ServletException(e);
         }
-        
-        // Cargar competencias
-        List<Competencia> listaCompetencias = AdministradorDatos.cargarTodasLasCompetencias();
-        Competencia[] arregloCompetencias = listaCompetencias.toArray(new Competencia[0]);
-        
-        // Enviar datos a la vista
-        request.setAttribute("usuarioEnSesion", usuarioActual);
-        request.setAttribute("competenciasDelUsuario", arregloCompetencias);
-        request.setAttribute("totalCompetenciasActuales", arregloCompetencias.length);
-        
-        // Ir a index.jsp
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
         String accion = request.getParameter("accion");
+        System.out.println("=== POST / === Acción: " + accion);
         
-        if ("actualizarPerfil".equals(accion)) {
-            // Actualizar datos del perfil
-            String nombre = request.getParameter("nombre");
-            String descripcion = request.getParameter("descripcion");
-            String email = request.getParameter("email");
-            String telefono = request.getParameter("telefono");
-            String experiencia = request.getParameter("experiencia");
-            String foto = request.getParameter("foto");
-            
-            Usuario usuarioActualizado = new Usuario(nombre, descripcion, email, telefono, experiencia, foto);
-            AdministradorDatos.guardarDatosUsuario(usuarioActualizado);
+        try {
+            if ("actualizarPerfil".equals(accion)) {
+                String nombre = request.getParameter("nombre");
+                String descripcion = request.getParameter("descripcion");
+                String email = request.getParameter("email");
+                String telefono = request.getParameter("telefono");
+                String experiencia = request.getParameter("experiencia");
+                String foto = request.getParameter("foto");
+                
+                System.out.println("Actualizando perfil: " + nombre);
+                
+                Usuario usuarioActualizado = new Usuario(nombre, descripcion, email, telefono, experiencia, foto);
+                AdministradorDatos.guardarDatosUsuario(usuarioActualizado);
+                
+                response.setContentType("text/plain");
+                response.getWriter().print("OK");
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().print("Acción desconocida");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en doPost: " + e.getMessage());
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().print("ERROR: " + e.getMessage());
         }
-        
-        // Redirigir de vuelta
-        doGet(request, response);
     }
     
     @Override
