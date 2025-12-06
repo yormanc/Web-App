@@ -55,7 +55,6 @@ WebPerfilDev/
 │ └── modales.jsp
 └── pom.xml
 
-text
 
 ## Cómo ejecutar el proyecto
 
@@ -69,7 +68,6 @@ text
 1. Clonar el repositorio:
 git clone https://github.com/yormanc/Web-App.git
 
-text
 
 2. Abrir NetBeans
 
@@ -95,7 +93,6 @@ text
 8. El navegador se abrirá automáticamente en:
 http://localhost:8085/WebPerfilDev/
 
-text
 
 ## Arquitectura MVC
 
@@ -140,7 +137,6 @@ El proyecto sigue el patrón Modelo-Vista-Controlador:
 Los datos se guardan en la carpeta:
 target/WebPerfilDev-1.0-SNAPSHOT/data/
 
-text
 
 **usuarioBase.json** - Guarda la información del perfil:
 {
@@ -152,8 +148,6 @@ text
 "urlFotoPerfil": "ruta/a/la/foto.jpg"
 }
 
-text
-
 **competenciasBase.json** - Guarda las capacidades técnicas:
 [
 {
@@ -163,8 +157,6 @@ text
 "colorAsociado": "#ED8936"
 }
 ]
-
-text
 
 ## Problemas conocidos
 
@@ -187,7 +179,6 @@ Se probaron las siguientes funcionalidades:
 
 Yorman Alexis Cortes Echeverri
 - Email: yorman.cortes@udea.edu.co
-- Teléfono: +57 (300) 1234567
 
 ## Información del proyecto
 
